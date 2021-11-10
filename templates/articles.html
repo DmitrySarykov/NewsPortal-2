@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block title %}
+News
+{% endblock title %}
+ 
+{% block content %}
+    <h1>Все статьи</h1>
+    <hr>
+    {% if articles %} <!-- Если есть товары, то выводим таблицу с ними -->
+        {% for article in articles %}
+        <div>
+            <h2><a href="{% url 'article' article.pk %}">{{ article.title|censor }}</a></h2>
+            <p><i>{{ article.date|date:'d M Y' }}</i></p>
+            <h4>{{ article.text|truncatechars:50|censor }}</h4>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h2>Статей нет!</h2>
+    {% endif %}
+{% endblock content %}
